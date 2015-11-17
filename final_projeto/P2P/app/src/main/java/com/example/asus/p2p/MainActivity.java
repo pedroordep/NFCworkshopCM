@@ -36,20 +36,9 @@ public class MainActivity extends AppCompatActivity {
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(homeIntent);
         }
-        // Check whether device is running Android 4.1 or higher
-        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            // Android Beam feature is not supported.
-            Toast.makeText(this, "Android Beam is not supported.",
-                    Toast.LENGTH_SHORT).show();
-
-            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-            homeIntent.addCategory( Intent.CATEGORY_HOME );
-            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(homeIntent);
-        }
         else {
             // NFC and Android Beam file transfer is supported.
-            Toast.makeText(this, "Android Beam is supported on your device.",
+            Toast.makeText(this, "NFC is supported on your device.",
                     Toast.LENGTH_SHORT).show();
 
             TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
@@ -74,22 +63,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
         }
-        // Check whether Android Beam feature is enabled on device
-        else if(!nfcAdapter.isNdefPushEnabled()) {
-            // Android Beam is disabled, show the settings UI
-            // to enable Android Beam
-            Toast.makeText(this, "Please enable Android Beam.",
-                    Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
-        }
         else {
-
             nfcAdapter.setNdefPushMessageCallback(new NfcAdapter.CreateNdefMessageCallback()
             {
                 @Override
                 public NdefMessage createNdefMessage(NfcEvent event) {
                     EditText editText = (EditText) findViewById(R.id.editText);
-                    //NdefRecord uriRecord = NdefRecord.createUri(Uri.encode("http://www.google.com/"));
+
                     NdefRecord uriRecord = NdefRecord.createUri("tel:"+editText.getText());
                     return new NdefMessage(new NdefRecord[] { uriRecord });
                 }

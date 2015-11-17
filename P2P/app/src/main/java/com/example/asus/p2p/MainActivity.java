@@ -36,17 +36,6 @@ public class MainActivity extends AppCompatActivity {
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(homeIntent);
         }
-        // Android 4.1(JELLY_BEAN) or higher
-        else if (false) {
-            Toast.makeText(this, "Android Beam is not supported.",
-                    Toast.LENGTH_SHORT).show();
-
-            // close app
-            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-            homeIntent.addCategory( Intent.CATEGORY_HOME );
-            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(homeIntent);
-        }
         else {
             // NFC and Android Beam are supported.
             Toast.makeText(this, "Android Beam is supported on your device.",
@@ -68,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(!nfcAdapter.isEnabled()){
             Toast.makeText(this, "Please enable NFC.",
-                    Toast.LENGTH_SHORT).show();
-
-            // TODO
-        }
-        else if(!nfcAdapter.isNdefPushEnabled()) {
-            Toast.makeText(this, "Please enable Android Beam.",
                     Toast.LENGTH_SHORT).show();
 
             // TODO
