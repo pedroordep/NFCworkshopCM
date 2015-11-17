@@ -27,7 +27,7 @@ public class WriteTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_write_text);
 
         //inicializar as variaveis
-        //vai buscar o adapter do device
+        //ir buscar o adapter do device
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(!nfcAdapter.isEnabled()){
             // NFC is disabled, show the settings UI

@@ -16,7 +16,7 @@ import java.util.Locale;
 public class NFC_Controller {
 
     public NdefMessage createNdefMessage(String content){
-        //funcao implementada na API 21 mas tem de se fazer à pata
+        //createTextRecord - funcao implementada na API 21 mas tem de se fazer à pata nesta.
         //mostrar aquela imagem 
         NdefRecord ndefRecord = createTextRecord(content);
 
@@ -26,7 +26,7 @@ public class NFC_Controller {
     }
 
     public NdefMessage createNdefURI(String content){
-        //criar record com as flags para ser URL
+        //criar record com as flags para ser URL, e ja nao se precisa de se fazer um payload por causa da flag
         NdefRecord uriRecord = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI , content.getBytes(Charset.forName("US-ASCII")), new byte[0], new byte[0]);
 
         NdefMessage ndefMessage = new NdefMessage(new NdefRecord[] { uriRecord });
@@ -53,7 +53,7 @@ public class NFC_Controller {
         payload[0] = (byte) languageSize;
         System.arraycopy(language, 0, payload, 1, languageSize);
         System.arraycopy(text, 0, payload, 1 + languageSize, textLenght);
-
+        //o tipo é wellknown, e para wellkown existe rtd-text. no payload tem de ter 1 byte(status), linguagem(1 a x) e o conteudo(1+linguagem+ y)
         return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], payload);
     }
 
@@ -73,13 +73,13 @@ public class NFC_Controller {
 
                 //caso exista, connectar
                 ndef.connect();
-                //ver se dá para escrever
+                //ver se a tag é writable
                 if(!ndef.isWritable()){
                     Toast.makeText(context, "Tag is not writable", Toast.LENGTH_SHORT).show();
                     ndef.close();
                     return;
                 }
-                //se der, escrever a mensagem
+                //se for, escrever a mensagem. esta funcao tem o mesmo nome mas esta é mesmo da classe
                 ndef.writeNdefMessage(ndefMessage);
                 ndef.close();
 

@@ -33,9 +33,7 @@ public class NFC_Controller {
     }
 
     private NdefRecord createTextRecord(String content){
-
         // TODO
-
         return null;
     }
 

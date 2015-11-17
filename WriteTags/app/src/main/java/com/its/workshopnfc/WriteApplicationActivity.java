@@ -65,7 +65,7 @@ public class WriteApplicationActivity extends AppCompatActivity {
         CustomListAdapter adapter = new CustomListAdapter(this, itemname, imgid, itemloc);
         ListView list=(ListView)findViewById(R.id.listApps);
         list.setAdapter(adapter);
-
+        //listener for the list
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -77,6 +77,7 @@ public class WriteApplicationActivity extends AppCompatActivity {
                     startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
                 }
                 itemSelected = itemloc.get(position);
+                //after the item being selected, the foreground dispatcher is enabled
                 enableForegroundDispatchSystem();
                 Toast.makeText(context, "Pass near a tag to write the app", Toast.LENGTH_SHORT).show();
             }
@@ -104,8 +105,7 @@ public class WriteApplicationActivity extends AppCompatActivity {
 
             if(intent.hasExtra(nfcAdapter.EXTRA_TAG)){
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                NdefMessage ndefMessage = nfc_controller.createNdefApplication(itemSelected);
-
+                
                 // TODO
             }
 

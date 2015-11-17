@@ -28,7 +28,7 @@ public class WriteURLActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_url);
 
-        //vai buscar o adapter do device
+        //isto já está inicializado
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(!nfcAdapter.isEnabled()){
             // NFC is disabled, show the settings UI
@@ -43,14 +43,14 @@ public class WriteURLActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        //tambem
         enableForegroundDispatchSystem();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
+        //tambem
         disableForegroundDispatchSystem();
     }
 
