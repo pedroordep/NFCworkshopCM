@@ -16,6 +16,8 @@ import java.util.Locale;
 public class NFC_Controller {
 
     public NdefMessage createNdefMessage(String content){
+        //funcao implementada na API 21 mas tem de se fazer à pata
+        //mostrar aquela imagem 
         NdefRecord ndefRecord = createTextRecord(content);
 
         NdefMessage ndefMessage = new NdefMessage(new NdefRecord[] { ndefRecord });
@@ -24,6 +26,7 @@ public class NFC_Controller {
     }
 
     public NdefMessage createNdefURI(String content){
+        //criar record com as flags para ser URL
         NdefRecord uriRecord = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI , content.getBytes(Charset.forName("US-ASCII")), new byte[0], new byte[0]);
 
         NdefMessage ndefMessage = new NdefMessage(new NdefRecord[] { uriRecord });
@@ -67,14 +70,16 @@ public class NFC_Controller {
                 formatTag(tag, ndefMessage, context);
             }
             else{
-                ndef.connect();
 
+                //caso exista, connectar
+                ndef.connect();
+                //ver se dá para escrever
                 if(!ndef.isWritable()){
                     Toast.makeText(context, "Tag is not writable", Toast.LENGTH_SHORT).show();
                     ndef.close();
                     return;
                 }
-
+                //se der, escrever a mensagem
                 ndef.writeNdefMessage(ndefMessage);
                 ndef.close();
 
@@ -95,6 +100,7 @@ public class NFC_Controller {
                 return;
             }
 
+            //conectar, formatar com o text novo e fechar
             ndefFormatable.connect();
             ndefFormatable.format(ndefMessage);
             ndefFormatable.close();

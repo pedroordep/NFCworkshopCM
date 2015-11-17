@@ -107,10 +107,10 @@ public class WriteApplicationActivity extends AppCompatActivity {
 
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 NdefMessage ndefMessage = nfc_controller.createNdefApplication(itemSelected);
-
+                //escrever a mensagem
                 nfc_controller.writeNdefMessage(tag, ndefMessage, this);
             }
-
+            //desactivar o item selecionado para nao ficar sempre à espera de tag para escrever
             itemSelected = null;
             nfcAdapter = null;
         }

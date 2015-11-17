@@ -63,6 +63,8 @@ public class WriteURLActivity extends AppCompatActivity {
 
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             EditText message = (EditText) findViewById(R.id.editUrl);
+
+            //criar uma messagem com URI
             NdefMessage ndefMessage = nfc_controller.createNdefURI(message.getText().toString());
 
             nfc_controller.writeNdefMessage(tag, ndefMessage, this);

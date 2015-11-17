@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 
 public class WriteTextActivity extends AppCompatActivity {
+
+	//declarar controller e o adapter
     NFC_Controller nfc_controller;
     NfcAdapter nfcAdapter;
 
@@ -24,6 +26,7 @@ public class WriteTextActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_text);
 
+        //inicializar as variaveis
         //vai buscar o adapter do device
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(!nfcAdapter.isEnabled()){
@@ -40,6 +43,7 @@ public class WriteTextActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        //faz com que a activity intercepte um intent NFC para ter prioridade sobre outras activities
         enableForegroundDispatchSystem();
     }
 
@@ -50,23 +54,28 @@ public class WriteTextActivity extends AppCompatActivity {
         disableForegroundDispatchSystem();
     }
 
+    //a funcao é chamada quando aparece uma nova activity, neste caso para quando se passa numa tag
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
+        //contem uma tag se for descoberta por uma das actions (ACTION_NDEF_DISCOVERED neste caso)
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG)) {
             //Toast.makeText(this, "nfcIntent", Toast.LENGTH_SHORT).show();
 
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             EditText message = (EditText) findViewById(R.id.editText);
+            //criar um objecto ndefMessage que vai conter a mensagem
             NdefMessage ndefMessage = nfc_controller.createNdefMessage(message.getText().toString());
-
+            //enviar a mensagem
             nfc_controller.writeNdefMessage(tag, ndefMessage, this);
         }
     }
 
     private void enableForegroundDispatchSystem() {
+    	//flag serve para um novo broadcast dar replace a um que ja exista
         Intent intent = new Intent(this, WriteTextActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+        //e um token que serve para enviar para outras aplicacoes, sendo executadas com as permissoes da outra app
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         IntentFilter[] intentFilters = new IntentFilter[] {};
 
