@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Workshop NFC</string>
+    <string name="action_settings">Settings</string>
+    <string name="mainTitle">Workshop NFC</string>
+    <string name="mainTextText">Write text to a tag</string>
+    <string name="buttonWriteText">Text</string>
+    <string name="mainUrlText">Write URL to a tag</string>
+    <string name="buttonWriteUrl">URL</string>
+    <string name="mainAppText">Write to launch an application</string>
+    <string name="buttonWriteApp">App</string>
+
+    <string name="title_activity_write_text">Write text to a tag</string>
+    <string name="writeTitle">Write text to a tag</string>
+    <string name="writeDescription">Enter some text and go near a Tag</string>
+    <string name="editTextText">Text</string>
+
+    <string name="title_activity_write_url">Write URL to a tag</string>
+    <string name="urlTitle">Write URL to a tag</string>
+    <string name="urlDescription">Enter a URL and go near a Tag</string>
+    <string name="editTextUrl">http://www.google.com</string>
+
+    <string name="title_activity_write_application">Launch an application</string>
+
+</resources>
