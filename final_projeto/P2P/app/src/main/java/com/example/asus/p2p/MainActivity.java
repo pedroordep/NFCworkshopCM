@@ -36,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(homeIntent);
         }
+        // Android 4.1(JELLY_BEAN) or higher
+        else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            Toast.makeText(this, "Android Beam is not supported.", Toast.LENGTH_SHORT).show();
+
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
         else {
             // NFC and Android Beam file transfer is supported.
             Toast.makeText(this, "NFC is supported on your device.",
@@ -62,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enable NFC.",
                     Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+        }
+        else if(!nfcAdapter.isNdefPushEnabled()) {
+            Toast.makeText(this, "Please enable Android Beam.", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
         }
         else {
             nfcAdapter.setNdefPushMessageCallback(new NfcAdapter.CreateNdefMessageCallback()
